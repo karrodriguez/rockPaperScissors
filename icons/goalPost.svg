@@ -1,0 +1,19 @@
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+
+ <g>
+  <title>Layer 1</title>
+  <rect stroke="#b2b2b2" id="svg_3" height="16" width="42" y="364" x="299" fill="#b2b2b2"/>
+  <rect stroke="#333333" rx="10" id="svg_2" height="296.99999" width="115" y="68" x="262" fill="#4c4c4c"/>
+  <rect stroke="#946dbf" rx="25" id="svg_1" height="218.00001" width="300" y="107" x="170" fill="#a17acc"/>
+  <rect id="svg_4" height="0" width="10" y="401" x="316" stroke="#333333" fill="#4c4c4c"/>
+  <rect stroke="#e5e5e5" id="svg_5" height="77" width="42" y="381" x="299" fill="#e5e5e5"/>
+  <rect rx="10" stroke="#946dbf" id="svg_11" height="75" width="117" y="220" x="192" fill="#e5e5e5"/>
+  <rect rx="10" stroke="#946dbf" id="svg_7" height="43" width="117" y="146" x="329" fill="#e5e5e5"/>
+  <text transform="matrix(0.924047 0 0 1 25.7481 -1)" stroke="#946dbf" font-weight="bold" xml:space="preserve" text-anchor="start" font-family="Noto Sans JP" font-size="24" stroke-width="0" id="svg_8" y="176" x="339" fill="#000000">Computer</text>
+  <rect rx="10" stroke="#946dbf" id="svg_9" height="43" width="117" y="146" x="192" fill="#e5e5e5"/>
+  <rect rx="10" stroke="#946dbf" id="svg_13" height="75" width="117" y="220" x="329" fill="#e5e5e5"/>
+  <text transform="matrix(0.924047 0 0 1 25.7481 -1)" stroke="#946dbf" font-weight="bold" xml:space="preserve" text-anchor="start" font-family="Noto Sans JP" font-size="24" stroke-width="0" id="svg_14" y="176" x="217.79404" fill="#000000">User</text>
+  <text font-weight="bold" xml:space="preserve" text-anchor="start" font-family="Noto Sans JP" font-size="45" stroke-width="0" id="svg_18" y="272" x="239" stroke="#946dbf" fill="#000000">0</text>
+  <text font-weight="bold" xml:space="preserve" text-anchor="start" font-family="Noto Sans JP" font-size="45" stroke-width="0" id="svg_19" y="272" x="378" stroke="#946dbf" fill="#000000">0</text>
+ </g>
+</svg>
