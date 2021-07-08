@@ -7,30 +7,19 @@ const ITEM_MAPPING = {
     2: "Paper"
 };
 
-const POSSIBLE_ITEMS = ["Rock", "Paper", "Scissors"];
-
-
 function computerPlay() {
     let computerHand = Math.floor(Math.random()*3);
 
     return computerHand;
 }
 
-function userPlay() {
-    let playerHand = prompt("Make your Play (Rock, Paper, or Scissors):");
+function userSelect(event) {
+    const objectClicked = event["path"][1];
+    const classClicked = Array.from(objectClicked.classList);
 
-    // Default string to only the first letter as capitalized 
-    playerHand = playerHand.toLowerCase();
-    playerHand = playerHand.replace(playerHand[0], playerHand[0].toUpperCase());
+    let userChoice = classClicked.includes("contentEnclosure") ? ITEM_MAPPING[objectClicked.id] : false;
     
-    // Verify if input is valid
-    if (!(POSSIBLE_ITEMS.includes(playerHand))) {
-        alert("Hmm... that's not a valid move. Pick again!");
-        playerHand = userPlay();
-    }
-
-    // Convert to numeric value to match computerPlay()'s data type
-    return ITEM_MAPPING[playerHand];
+    playRound(userChoice, computerPlay());
 }
 
 function playRound(playerSelection, computerSelection) {
@@ -40,42 +29,47 @@ function playRound(playerSelection, computerSelection) {
     const playResult = playerSelection.toString() + computerSelection.toString();
 
     if (computerSelection === playerSelection) {
-        return [0, "Tie! Nobody Wins"];
+        console.log( [0, "Tie! Nobody Wins"]);
     }
 
     else if (PLAYER_WIN.includes(playResult)) {
-        return [1, `You Win! ${ITEM_MAPPING[playerSelection]} beats ${ITEM_MAPPING[computerSelection]}`];
+        console.log( [1, `You Win! ${ITEM_MAPPING[playerSelection]} beats ${ITEM_MAPPING[computerSelection]}`]);
     }
 
     else if (COMPUTER_WIN.includes(playResult)) {
-        return [-1, `You Lose! ${ITEM_MAPPING[computerSelection]} beats ${ITEM_MAPPING[playerSelection]}`];
-    }
-}
-
-
-function game() {
-    let outcome;
-    let tally = 0;
-
-    for (let i=0; i<5; i++) {
-        computerSelection = computerPlay();
-        playerSelection = userPlay();
-
-        outcome = playRound(playerSelection, computerSelection);
-        tally += outcome[0];
-
-        console.log(outcome[1]);
-    }
-
-    if (tally == 0) {
-        return "Tie! Nobody Wins";
-    }
-
-    else if (tally > 0) {
-        return "You Win!!";
+        console.log( [-1, `You Lose! ${ITEM_MAPPING[computerSelection]} beats ${ITEM_MAPPING[playerSelection]}`]);
     }
 
     else {
-        return "You Lose!!";
+        console.log("Something went wrong...");
     }
 }
+
+// function game() {
+//     let outcome;
+//     let tally = 0;
+
+//     for (let i=0; i<5; i++) {
+//         computerSelection = computerPlay();
+//         playerSelection = userPlay();
+
+//         outcome = playRound(playerSelection, computerSelection);
+//         tally += outcome[0];
+
+//         console.log(outcome[1]);
+//     }
+
+//     if (tally == 0) {
+//         return "Tie! Nobody Wins";
+//     }
+
+//     else if (tally > 0) {
+//         return "You Win!!";
+//     }
+
+//     else {
+//         return "You Lose!!";
+//     }
+// }
+
+document.addEventListener("click", userSelect);
