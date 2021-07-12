@@ -19,19 +19,25 @@ body {
     justify-content: space-between;}
 
 #scoreKeeper {
-    background-color: rgb(122, 122, 122);
-    width: 300px;
-    height: 150px;
+    height: 250px;
     align-self: center;
 }
+
 
 #gameRound {
     display: flex;
     justify-content: space-around;
 }
 
+#roundResultMsg {
+    text-align: center;
+    font-weight: bold;
+    font-size: 30px;
+    color: rgba(242, 253, 85, 0.842);
+}
+
 .roundHands {
-    width: 500px;
+    width: 350px;
 }
 
 #userHand {

@@ -1,3 +1,5 @@
+const PLAYER_WIN = ["01", "12", "20"];
+const COMPUTER_WIN = ["10", "21", "02"];
 const ITEM_MAPPING = {
     "Rock": 0,
     "Scissors": 1,
@@ -6,6 +8,11 @@ const ITEM_MAPPING = {
     1: "Scissors",
     2: "Paper"
 };
+
+let roundResultDiv = document.querySelector("#roundResultMsg");
+
+let userScore = 0;
+let computerScore = 0;
 
 function computerPlay() {
     let computerHand = Math.floor(Math.random()*3);
@@ -17,59 +24,74 @@ function userSelect(event) {
     const objectClicked = event["path"][1];
     const classClicked = Array.from(objectClicked.classList);
 
-    let userChoice = classClicked.includes("contentEnclosure") ? ITEM_MAPPING[objectClicked.id] : false;
-    
-    playRound(userChoice, computerPlay());
+    return userChoice = classClicked.includes("contentEnclosure") ? ITEM_MAPPING[objectClicked.id] : undefined;
 }
 
-function playRound(playerSelection, computerSelection) {
-    const PLAYER_WIN = ["01", "12", "20"];
-    const COMPUTER_WIN = ["10", "21", "02"];
+function playRound(event) {
+    let computerSelection = computerPlay();
+    let playerSelection = userSelect(event);
+    let result;
+
+    // Ignore if user doesn't click within any of the three options 
+    if (playerSelection === undefined) return;
 
     const playResult = playerSelection.toString() + computerSelection.toString();
 
     if (computerSelection === playerSelection) {
-        console.log( [0, "Tie! Nobody Wins"]);
+        roundResultDiv.textContent = "Tie! Nobody Wins";
+        result = 0;
     }
 
     else if (PLAYER_WIN.includes(playResult)) {
-        console.log( [1, `You Win! ${ITEM_MAPPING[playerSelection]} beats ${ITEM_MAPPING[computerSelection]}`]);
+        roundResultDiv.textContent = `You Win! ${ITEM_MAPPING[playerSelection]} beats ${ITEM_MAPPING[computerSelection]}`;
+        userScore += 1;
+        result = 1;
     }
 
     else if (COMPUTER_WIN.includes(playResult)) {
-        console.log( [-1, `You Lose! ${ITEM_MAPPING[computerSelection]} beats ${ITEM_MAPPING[playerSelection]}`]);
+        roundResultDiv.textContent = `You Lose! ${ITEM_MAPPING[computerSelection]} beats ${ITEM_MAPPING[playerSelection]}`;
+        computerScore += 1;
+        result = -1;
     }
 
     else {
-        console.log("Something went wrong...");
+        alert("Oops... Try again!");
+    }
+
+    updateScore(userScore, computerScore);
+    fullGame();
+
+    return result
+
+}
+
+function updateScore(userScoreVal, compScoreVal) {
+    let goalPostSVGElem = document.goalPostSVG.contentDocument.getElementsByTagName("svg")[0];
+    const userScoreObj = goalPostSVGElem.getElementById("userScore");
+    const computerScoreObj = goalPostSVGElem.getElementById("computerScore");
+
+    userScoreObj.textContent = userScoreVal;
+    computerScoreObj.textContent = compScoreVal;
+}
+
+function fullGame() {
+    if ((userScore + computerScore) >= 5) {
+        if (userScore === computerScore) {
+            roundResultDiv.textContent = "Tie! Nobody Wins";
+        }
+        else if (userScore > computerScore) {
+            roundResultDiv.textContent = "You Win!!";
+        }
+    
+        else if (userScore < computerScore) {
+            roundResultDiv.textContent = "You Lose!!";
+        }
+        userScore = 0;
+        computerScore = 0;
+
+        roundResultDiv.textContent = "Start New Game";
+        updateScore(userScore, computerScore);
     }
 }
 
-// function game() {
-//     let outcome;
-//     let tally = 0;
-
-//     for (let i=0; i<5; i++) {
-//         computerSelection = computerPlay();
-//         playerSelection = userPlay();
-
-//         outcome = playRound(playerSelection, computerSelection);
-//         tally += outcome[0];
-
-//         console.log(outcome[1]);
-//     }
-
-//     if (tally == 0) {
-//         return "Tie! Nobody Wins";
-//     }
-
-//     else if (tally > 0) {
-//         return "You Win!!";
-//     }
-
-//     else {
-//         return "You Lose!!";
-//     }
-// }
-
-document.addEventListener("click", userSelect);
+document.addEventListener("click", playRound);
